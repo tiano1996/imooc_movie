@@ -1,0 +1,8 @@
+img.img-responsive.img-thumbnail(src="#{user.avatar}", alt="#{user.name}")
+h3.text-center#username #{user.name}
+br
+ul.nav.nav-pills.nav-stacked#navTab
+  li.active
+    a#password-tab(href="#password", data-toggle="tab", aria-controls="password", aria-expanded="true") 修改密码
+  li
+    a#avatar-tab(href="#avatar", data-toggle="tab", aria-controls="avatar") 上船头像

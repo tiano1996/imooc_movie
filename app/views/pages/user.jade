@@ -1,0 +1,48 @@
+extends ../layout
+
+block content
+  link(href="/libs/cropper/dist/cropper.min.css", rel="stylesheet")
+  .container
+    .row
+      .col-md-2
+        include ../includes/sidebar
+      .col-md-8
+        .tab-content
+          #password.tab-pane.fade.active.in(aria-labelledby="password-tab")
+            h2 修改密码
+            form.form-horizontal(method="post", action="/admin/user")
+              .form-group
+                label.col-md-2.control-label(for="inputOldpwd") 密码
+                .col-md-9
+                  input#inputOldpwd.form-control(type="text")
+              .form-group
+                label.col-md-2.control-label(for="inputNewpwd") 新密码
+                .col-md-9
+                  input#inputNewpwd.form-control(type="text")
+              .form-group
+                label.col-md-2.control-label(for="inputRepwd") 重复新密码
+                .col-md-9
+                  input#inputRepwd.form-control(type="text", name="user[password]")
+                
+              .col-md-offset-2.col-md-10
+                button#changePwd.btn.btn-default(type="button") 修改
+          #avatar.tab-pane.fade(aria-labelledby="avatar-tab")
+            h2 上船头像
+            .row
+              .col-md-8
+                div
+                  img#image(src="", style="height: 400px; width: 400px;")
+                br
+                input.btn.btn-default#uploadTemp(type="file", name="uploadTemp")
+                br
+                form.form-horizontal(method="post", action="/user/postAvatar")
+                  input#avatarImg(name="avatarImg", type="hidden")
+                  button#postTemp.btn.btn-default(type="submit") 上船
+                  // button.btn.btn-success(type="submit") 保存
+              .col-md-4
+                .img-preview.preview-lg(style="width: 148px; height: 148px; overflow: hidden")
+                  img(src="")
+        div hahahahaha
+  script(src="/libs/cropper/dist/cropper.min.js")
+  script(src="/js/avatar.js")
+  script(src="/js/user.js")
