@@ -5,9 +5,9 @@
 - 增加https，端口3011
 
 ## 运行
-1. 进入目录
+1. 进入目录  
 ` npm isntall`
-2. 全剧安装grunt（如果装了就不用了）
+2. 全剧安装grunt（如果装了就不用了）  
 ` $ npm install grunt -g`
-3. grunt运行
+3. grunt运行  
 ` $ grunt`
