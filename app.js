@@ -68,7 +68,7 @@ if('development' === env) {
 
 require('./config/routes')(app)
 
-app.use(serveStatuc(path.join(__dirname, 'public/')));
+app.use(serveStatuc(path.join(__dirname, 'public')));
 app.locals.moment = require('moment');
 
 https.createServer(https_options, app).listen(3011, function(err) {
