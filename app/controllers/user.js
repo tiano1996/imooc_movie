@@ -111,28 +111,16 @@ exports.changePwd = function(req, res) {
       }
 
      if(isMatch) {
-       bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
-         if(err) {
+      user.password = _newPwd;
+       user.save(function(err, user) {
+         if (err) {
            console.log(err);
          }
 
-         bcrypt.hash(_newPwd, salt, function(err, hash) {
-           if(err) {
-             console.log(err);
-           }
-
-           user.password = hash;
-           user.update({$set: {'password': user.password}, $set: {'meta.updateAt': Date.now()}}, function(err, user) {
-             if (err) {
-               console.log(err);
-             }
-
-             delete req.session.user;
-             res.json({success: 1});
-           });
-
-         });
+         delete req.session.user;
+         res.json({success: 1});
        });
+
 
      }
    });
@@ -159,7 +147,7 @@ exports.postAvatar = function(req, res) {
     User.findOne({name: _user.name}, function(err, user) {
       console.log(user);
       user.avatar = req.avatar;
-      user.update({$set: {'avatar': user.avatar}}, function(err){
+      user.update({$set: {'avatar': user.avatar}, $set: {'meta.updateAt': Date.now()}}, function(err){
         if(err) {
           console.log(err);
         }
