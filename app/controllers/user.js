@@ -3,6 +3,9 @@ var fs = require('fs');
 var _ = require('underscore');
 var path = require('path');
 
+var bcrypt = require('bcrypt');
+var SALT_WORK_FACTOR = 10;
+
 
 //signup
 exports.showSignup = function(req, res) {
@@ -108,15 +111,29 @@ exports.changePwd = function(req, res) {
       }
 
      if(isMatch) {
-        user.password = _newPwd;
-        user.update({$set: {'password': user.password}}, function(err) {
-          if (err) {
-            console.log(err);
-          }
+       bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+         if(err) {
+           console.log(err);
+         }
 
-          delete req.session.user;
-          res.json({success: 1});
-        });
+         bcrypt.hash(_newPwd, salt, function(err, hash) {
+           if(err) {
+             console.log(err);
+           }
+
+           user.password = hash;
+           user.update({$set: {'password': user.password}, $set: {'meta.updateAt': Date.now()}}, function(err, user) {
+             if (err) {
+               console.log(err);
+             }
+
+             delete req.session.user;
+             res.json({success: 1});
+           });
+
+         });
+       });
+
      }
    });
  });

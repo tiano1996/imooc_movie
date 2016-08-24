@@ -35,6 +35,7 @@ var UserSchema = new mongoose.Schema({
 
 UserSchema.pre('save', function(next){
   var user = this;
+  console.log(this);
 
   if (this.isNew) {
     this.meta.createAt = this.meta.updateAt = Date.now();
@@ -54,6 +55,29 @@ UserSchema.pre('save', function(next){
   });
 
 });
+
+// UserSchema.pre('update', function(next){
+//   var user = this;
+//   // this.meta.updateAt = Date.now();
+//
+//   var password = user._update.$set.password;
+//   console.log(this);
+//   if(password) {
+//     bcrypt.genSalt(SALT_WORK_FACTOR, function(err, salt){
+//       if(err) return next(err);
+//
+//       bcrypt.hash(password, salt, function(err, hash) {
+//         if(err) return next(err);
+//
+//         password = hash;
+//         console.log(user.password);
+//         next();
+//       });
+//     });
+//   } else {
+//     // next();
+//   }
+// });
 
 UserSchema.methods = {
   comparePassword: function(_password, cb) {
