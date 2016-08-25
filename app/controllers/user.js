@@ -143,11 +143,9 @@ exports.postAvatar = function(req, res) {
       console.log(err);
     }
     req.avatar = path.join('/upload/user/' + avatar);
-    console.log(req.avatar);
     User.findOne({name: _user.name}, function(err, user) {
-      console.log(user);
       user.avatar = req.avatar;
-      user.update({$set: {'avatar': user.avatar}, $set: {'meta.updateAt': Date.now()}}, function(err){
+      user.update({$set: {'avatar': user.avatar}}, {$set: {'meta.updateAt': Date.now()}}, function(err){
         if(err) {
           console.log(err);
         }

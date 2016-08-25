@@ -1,4 +1,7 @@
-img.img-responsive.img-thumbnail(src="#{user.avatar}", alt="#{user.name}")
+if user.avatar
+  img.img-responsive.img-thumbnail(src="#{user.avatar}", alt="#{user.name}")
+else
+  img.img-responsive.img-thumbnail(src="/img/user_default.jpg", alt="#{user.name}")
 h3.text-center#username #{user.name}
 br
 ul.nav.nav-pills.nav-stacked#navTab

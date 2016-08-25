@@ -18,7 +18,10 @@
     if user
       p.navbar-text.navbar-right
         span 欢迎您，&nbsp;
-        img(src="#{user.avatar}", style="width: 24px; height: 24px;")
+        if user.avatar
+          img(src="#{user.avatar}", style="width: 24px; height: 24px;")
+        else
+          img(src="/img/user_default.jpg", style="width: 24px; height: 24px;")
         span &nbsp;
         span #{user.name}
         span &nbsp;|&nbsp;
